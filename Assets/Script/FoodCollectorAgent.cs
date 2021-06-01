@@ -191,7 +191,7 @@ public class FoodCollectorAgent : Agent
         if (collision.gameObject.CompareTag("badFood"))
         {
             AddReward(-1f);
-            collision.gameObject.GetComponent<FoodLogic>().OnEaten();
+            // collision.gameObject.GetComponent<FoodLogic>().OnEaten();
             badBallCount += 1;
         }
         if (collision.gameObject.CompareTag("wall")) 

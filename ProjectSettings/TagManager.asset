@@ -11,6 +11,17 @@ TagManager:
   - goodFood
   - building
   - ramp
+  - wall
+  - wall1
+  - wall2
+  - wall3
+  - wall4
+  - uwall1
+  - uwall2
+  - uwall3
+  - wallr3
+  - uwall4
+  - uwallr3
   layers:
   - Default
   - TransparentFX
