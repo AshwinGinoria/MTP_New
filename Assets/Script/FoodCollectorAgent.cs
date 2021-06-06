@@ -84,7 +84,7 @@ public class FoodCollectorAgent : Agent
     public void MoveAgent(ActionSegment<int> act)
     {   
         this.numSteps += 1;
-        if(this.numSteps >= 45000) {
+        if(this.numSteps >= 15000) {
             this.numSteps = 0;
             foodCollectorSetting.EnvironmentReset();
             EndEpisode();
@@ -141,7 +141,6 @@ public class FoodCollectorAgent : Agent
             }
             startingFrom = -1;
         }
-        Debug.Log(startingFrom);
         prevYPosition = agentRb.position.y;
         if(!isGrounded && !CheckonRamp()) {
             
