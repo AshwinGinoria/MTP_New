@@ -84,7 +84,7 @@ public class FoodCollectorAgent : Agent
     public void MoveAgent(ActionSegment<int> act)
     {   
         this.numSteps += 1;
-        if(this.numSteps >= 15000) {
+        if(this.numSteps >= 10000) {
             this.numSteps = 0;
             foodCollectorSetting.EnvironmentReset();
             EndEpisode();
