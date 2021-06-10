@@ -20,7 +20,7 @@ behaviors:
                 gamma: 0.99
                 strength: 1
             curiosity:
-                strength: 0.2
+                strength: 0.02
                 gamma: 0.99
                 learning_rate: 0.0003      
         keep_checkpoints: 5
