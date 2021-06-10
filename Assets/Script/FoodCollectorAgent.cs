@@ -98,7 +98,7 @@ public class FoodCollectorAgent : Agent
         // AddReward(-0.001f);
 
         if(agentRb.position.y >= 10 && groundNoGoodBallsCollected / (numGroundGoodBalls + 1e-6) >= 0.5) {
-            AddReward(2f);
+            AddReward(6f);
             // Debug.Log("+5 added");
             numGroundGoodBalls -= groundNoGoodBallsCollected;
             groundNoGoodBallsCollected = 0;
