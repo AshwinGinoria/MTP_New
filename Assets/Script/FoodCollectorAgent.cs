@@ -74,6 +74,7 @@ public class FoodCollectorAgent : Agent
         } else {
             sensor.AddObservation(0);
         }
+        sensor.AddObservation(this.transform.localPosition);
     }
 
     public bool CheckonRamp() {
@@ -83,8 +84,12 @@ public class FoodCollectorAgent : Agent
 
     public void MoveAgent(ActionSegment<int> act)
     {   
-        this.numSteps += 1;
-        if(this.numSteps >= 45000) {
+        var action = (int)act[0];
+
+        if(action != 3)
+            this.numSteps += 1;
+
+        if(this.numSteps >= 20000) {
             this.numSteps = 0;
             foodCollectorSetting.EnvironmentReset();
             EndEpisode();
@@ -93,18 +98,18 @@ public class FoodCollectorAgent : Agent
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         // AddReward(-0.001f);
 
-        if(agentRb.position.y >= 10 && groundNoGoodBallsCollected / (numGroundGoodBalls + 1e-6) >= 0.5) {
-            AddReward(6f);
-            // Debug.Log("+5 added");
-            numGroundGoodBalls -= groundNoGoodBallsCollected;
-            groundNoGoodBallsCollected = 0;
-        }  
-        if(agentRb.position.y < 8 && !CheckonRamp() && firstFloorNoGoodBallsCollected / (numFirstGoodBalls + 1e-5) >= 0.5) {
-            AddReward(6f);
-            // Debug.Log("+6 added down");
-            numFirstGoodBalls -= firstFloorNoGoodBallsCollected;
-            firstFloorNoGoodBallsCollected = 0;
-        }
+        // if(agentRb.position.y >= 10 && groundNoGoodBallsCollected / (numGroundGoodBalls + 1e-6) >= 0.5) {
+        //     AddReward(6f);
+        //     // Debug.Log("+5 added");
+        //     numGroundGoodBalls -= groundNoGoodBallsCollected;
+        //     groundNoGoodBallsCollected = 0;
+        // }  
+        // if(agentRb.position.y < 8 && !CheckonRamp() && firstFloorNoGoodBallsCollected / (numFirstGoodBalls + 1e-5) >= 0.5) {
+        //     AddReward(6f);
+        //     // Debug.Log("+6 added down");
+        //     numFirstGoodBalls -= firstFloorNoGoodBallsCollected;
+        //     firstFloorNoGoodBallsCollected = 0;
+        // }
 
 
         if(CheckonRamp() ) {
@@ -141,7 +146,6 @@ public class FoodCollectorAgent : Agent
             }
             startingFrom = -1;
         }
-        Debug.Log(startingFrom);
         prevYPosition = agentRb.position.y;
         if(!isGrounded && !CheckonRamp()) {
             
@@ -150,7 +154,6 @@ public class FoodCollectorAgent : Agent
         var dirToGo = Vector3.zero;
         var rotateDir = Vector3.zero;
 
-        var action = (int)act[0];
         switch (action)
         {   
             case 0:
@@ -194,20 +197,7 @@ public class FoodCollectorAgent : Agent
             // collision.gameObject.GetComponent<FoodLogic>().OnEaten();
             badBallCount += 1;
         }
-        if (collision.gameObject.CompareTag("wall")) 
-        {
-            AddReward(-0.2f);
-        }
-        // Debug.Log("badBallCount = "+ badBallCount);
-        // Debug.Log("goodBallCount = "+ goodBallCount);
     }
-    void OnCollisionStay(Collision collision) {
-        if (collision.gameObject.CompareTag("wall")) 
-        {
-            AddReward(-0.2f);
-        }
-    }
-
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {

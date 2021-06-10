@@ -217,6 +217,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6980564149061262444, guid: b14d74b4e10264a85bcdd0a5f857c18c,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6980564149061262444, guid: b14d74b4e10264a85bcdd0a5f857c18c,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6980564149061262444, guid: b14d74b4e10264a85bcdd0a5f857c18c,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6980564149061262444, guid: b14d74b4e10264a85bcdd0a5f857c18c,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -67.5
       objectReference: {fileID: 0}
@@ -292,6 +307,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b14d74b4e10264a85bcdd0a5f857c18c, type: 3}
+--- !u!1 &297940807
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 297940808}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &297940808
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297940807}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.45, z: -1.93}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &502935282
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,6 +492,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   food: {fileID: 20666465965901704, guid: bb976c7807c85440c85be6fc64be5dcb, type: 3}
   badFood: {fileID: 5897017254104531010, guid: 42f38a2b1673348e7838d670fc94db76, type: 3}
+  chair: {fileID: 1637112799116740, guid: 67d2a92d40dd805469dafaa71432f3c8, type: 3}
+  table: {fileID: 1639746497264186, guid: a6944c2dc64c4414ab5e5f64d2837553, type: 3}
+  chotiGun: {fileID: 1810977374228191703, guid: e8c7b3acd8d157f919cf3365c4cf32aa,
+    type: 3}
+  badiGun: {fileID: 8363432097540398096, guid: e3201ebd25489bff19e5c12e3a9c584a, type: 3}
+  bomb: {fileID: 383981385237669482, guid: fe731937bb751f40f97eb621f1fef82f, type: 3}
   numFood: 50
   numBadFood: 50
 --- !u!1 &656240226
@@ -919,7 +970,7 @@ PrefabInstance:
     - target: {fileID: 1466617449554722041, guid: 2d5f1ddef141d40a3aaf2385e2dddd35,
         type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1466617449554722041, guid: 2d5f1ddef141d40a3aaf2385e2dddd35,
         type: 3}

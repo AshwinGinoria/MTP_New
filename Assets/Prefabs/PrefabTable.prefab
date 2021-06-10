@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 54826070263395300}
   m_Layer: 0
   m_Name: PrefabTable
-  m_TagString: obstacle
+  m_TagString: badFood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -206,5 +206,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 122
   m_CollisionDetection: 0
