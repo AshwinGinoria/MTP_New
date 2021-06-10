@@ -99,13 +99,13 @@ public class FoodCollectorAgent : Agent
         // AddReward(-0.001f);
 
         if(agentRb.position.y >= 10 && groundNoGoodBallsCollected / (numGroundGoodBalls + 1e-6) >= 0.5) {
-            AddReward(6f);
+            AddReward(2f);
             // Debug.Log("+5 added");
             numGroundGoodBalls -= groundNoGoodBallsCollected;
             groundNoGoodBallsCollected = 0;
         }  
         if(agentRb.position.y < 8 && !CheckonRamp() && firstFloorNoGoodBallsCollected / (numFirstGoodBalls + 1e-5) >= 0.5) {
-            AddReward(6f);
+            AddReward(2f);
             // Debug.Log("+6 added down");
             numFirstGoodBalls -= firstFloorNoGoodBallsCollected;
             firstFloorNoGoodBallsCollected = 0;
