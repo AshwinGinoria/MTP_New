@@ -84,8 +84,11 @@ public class FoodCollectorAgent : Agent
 
     public void MoveAgent(ActionSegment<int> act)
     {   
-        this.numSteps += 1;
-        if(this.numSteps >= 45000) {
+        var action = (int)act[0];
+
+        if(action != 3)
+            this.numSteps += 1;
+        if(this.numSteps >= 20000) {
             this.numSteps = 0;
             foodCollectorSetting.EnvironmentReset();
             EndEpisode();
@@ -142,7 +145,6 @@ public class FoodCollectorAgent : Agent
             }
             startingFrom = -1;
         }
-        Debug.Log(startingFrom);
         prevYPosition = agentRb.position.y;
         if(!isGrounded && !CheckonRamp()) {
             
@@ -151,7 +153,7 @@ public class FoodCollectorAgent : Agent
         var dirToGo = Vector3.zero;
         var rotateDir = Vector3.zero;
 
-        var action = (int)act[0];
+        
         switch (action)
         {   
             case 0:
