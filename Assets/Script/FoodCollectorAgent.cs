@@ -74,6 +74,7 @@ public class FoodCollectorAgent : Agent
         } else {
             sensor.AddObservation(0);
         }
+        sensor.AddObservation(this.transform.localPosition);
     }
 
     public bool CheckonRamp() {
@@ -94,13 +95,13 @@ public class FoodCollectorAgent : Agent
         // AddReward(-0.001f);
 
         if(agentRb.position.y >= 10 && groundNoGoodBallsCollected / (numGroundGoodBalls + 1e-6) >= 0.5) {
-            AddReward(6f);
+            AddReward(2f);
             // Debug.Log("+5 added");
             numGroundGoodBalls -= groundNoGoodBallsCollected;
             groundNoGoodBallsCollected = 0;
         }  
         if(agentRb.position.y < 8 && !CheckonRamp() && firstFloorNoGoodBallsCollected / (numFirstGoodBalls + 1e-5) >= 0.5) {
-            AddReward(6f);
+            AddReward(2f);
             // Debug.Log("+6 added down");
             numFirstGoodBalls -= firstFloorNoGoodBallsCollected;
             firstFloorNoGoodBallsCollected = 0;
@@ -191,7 +192,7 @@ public class FoodCollectorAgent : Agent
         if (collision.gameObject.CompareTag("badFood"))
         {
             AddReward(-1f);
-            // collision.gameObject.GetComponent<FoodLogic>().OnEaten();
+            collision.gameObject.GetComponent<FoodLogic>().OnEaten();
             badBallCount += 1;
         }
         if (collision.gameObject.CompareTag("wall")) 
