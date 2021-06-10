@@ -13,14 +13,14 @@ behaviors:
         network_settings:
             normalize: false
             hidden_units: 256
-            num_layers: 4
+            num_layers: 3
             vis_encode_type: simple
         reward_signals:
             extrinsic:
-                gamma: 0.89
+                gamma: 0.99
                 strength: 1
             curiosity:
-                strength: 0.1
+                strength: 0.2
                 gamma: 0.99
                 learning_rate: 0.0003      
         keep_checkpoints: 5
