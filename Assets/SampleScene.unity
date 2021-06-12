@@ -643,7 +643,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 120
+  m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -975,7 +975,12 @@ PrefabInstance:
     - target: {fileID: 1466617449554722041, guid: 2d5f1ddef141d40a3aaf2385e2dddd35,
         type: 3}
       propertyPath: m_BrainParameters.VectorActionSize.Array.data[0]
-      value: 3
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1466617449554722041, guid: 2d5f1ddef141d40a3aaf2385e2dddd35,
+        type: 3}
+      propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.data[0]
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2926662769830381020, guid: 2d5f1ddef141d40a3aaf2385e2dddd35,
         type: 3}
@@ -1010,7 +1015,7 @@ PrefabInstance:
     - target: {fileID: 7021902083406164011, guid: 2d5f1ddef141d40a3aaf2385e2dddd35,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7021902083406164011, guid: 2d5f1ddef141d40a3aaf2385e2dddd35,
         type: 3}
@@ -1926,7 +1931,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 120
+  m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -2019,7 +2024,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 170
+  m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10

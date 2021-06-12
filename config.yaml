@@ -3,7 +3,7 @@ behaviors:
         trainer_type: ppo
         hyperparameters:
             batch_size: 128
-            buffer_size: 2048
+            buffer_size: 4096
             learning_rate: 0.0003
             beta: 0.01
             epsilon: 0.2
@@ -15,6 +15,9 @@ behaviors:
             hidden_units: 256
             num_layers: 3
             vis_encode_type: simple
+            memory:
+                sequence_length: 64
+                memory_size: 128        
         reward_signals:
             extrinsic:
                 gamma: 0.99

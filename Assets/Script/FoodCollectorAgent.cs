@@ -86,9 +86,11 @@ public class FoodCollectorAgent : Agent
     {   
         var action = (int)act[0];
 
-        if(action != 3)
+        if(action != 4)
             this.numSteps += 1;
-
+        if(action == 3) {
+            AddReward(-0.02f);
+        }
         if(this.numSteps >= 20000) {
             this.numSteps = 0;
             foodCollectorSetting.EnvironmentReset();
@@ -98,18 +100,18 @@ public class FoodCollectorAgent : Agent
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         // AddReward(-0.001f);
 
-        if(agentRb.position.y >= 10 && groundNoGoodBallsCollected / (numGroundGoodBalls + 1e-6) >= 0.5) {
-            AddReward(6f);
-            // Debug.Log("+5 added");
-            numGroundGoodBalls -= groundNoGoodBallsCollected;
-            groundNoGoodBallsCollected = 0;
-        }  
-        if(agentRb.position.y < 8 && !CheckonRamp() && firstFloorNoGoodBallsCollected / (numFirstGoodBalls + 1e-5) >= 0.5) {
-            AddReward(6f);
-            // Debug.Log("+6 added down");
-            numFirstGoodBalls -= firstFloorNoGoodBallsCollected;
-            firstFloorNoGoodBallsCollected = 0;
-        }
+        // if(agentRb.position.y >= 10 && groundNoGoodBallsCollected / (numGroundGoodBalls + 1e-6) >= 0.5) {
+        //     AddReward(6f);
+        //     // Debug.Log("+5 added");
+        //     numGroundGoodBalls -= groundNoGoodBallsCollected;
+        //     groundNoGoodBallsCollected = 0;
+        // }  
+        // if(agentRb.position.y < 8 && !CheckonRamp() && firstFloorNoGoodBallsCollected / (numFirstGoodBalls + 1e-5) >= 0.5) {
+        //     AddReward(6f);
+        //     // Debug.Log("+6 added down");
+        //     numFirstGoodBalls -= firstFloorNoGoodBallsCollected;
+        //     firstFloorNoGoodBallsCollected = 0;
+        // }
 
 
         if(CheckonRamp() ) {
@@ -159,9 +161,9 @@ public class FoodCollectorAgent : Agent
             case 0:
                 dirToGo = transform.forward;
                 break;
-            // case 1:
-            //     dirToGo = -transform.forward;
-            //     break;
+            case 3:
+                dirToGo = -transform.forward;
+                break;
             case 1:
                 rotateDir = -transform.up;
                 break;
@@ -202,15 +204,15 @@ public class FoodCollectorAgent : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         var discreteActionsOut = actionsOut.DiscreteActions;
-        discreteActionsOut[0] = 3;
+        discreteActionsOut[0] = 4;
         if (Input.GetKey(KeyCode.W))
         {
             discreteActionsOut[0] = 0;
         }
-        // if (Input.GetKey(KeyCode.S))
-        // {
-        //     discreteActionsOut[0] = 1;
-        // }
+        if (Input.GetKey(KeyCode.S))
+        {
+            discreteActionsOut[0] = 3;
+        }
         if (Input.GetKey(KeyCode.A))
         {
             discreteActionsOut[0] = 1;
