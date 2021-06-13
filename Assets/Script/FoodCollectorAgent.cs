@@ -93,10 +93,14 @@ public class FoodCollectorAgent : Agent
         }
         // EndGame
         if(action == 4){
+        	float frac_steps_left = 1.0f - (this.numSteps/20000.0f); 
+        	if(goodBallCount == 100){
+        		AddReward(27 + 3*frac_steps_left);
+        	}
         	float frac_rem_ball = (goodBallCount/100.0f);
-        	float frac_steps_left = 1.0f - (this.numSteps/20000.0f);  
-        	// Debug.Log(27*frac_rem_ball + 3*frac_steps_left);
-        	AddReward(27*frac_rem_ball + 3*frac_steps_left);
+        	 
+        	Debug.Log(-27*(1.0f-frac_rem_ball));
+        	AddReward(-27*(1.0f-frac_rem_ball));
         	foodCollectorSetting.EnvironmentReset();
         	EndEpisode();
             this.OnEpisodeBegin();
