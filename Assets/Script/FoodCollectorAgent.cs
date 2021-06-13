@@ -86,10 +86,21 @@ public class FoodCollectorAgent : Agent
     {   
         var action = (int)act[0];
 
-        if(action != 4)
+        if(action != 5)
             this.numSteps += 1;
         if(action == 3) {
             AddReward(-0.02f);
+        }
+        // EndGame
+        if(action == 4){
+        	float frac_rem_ball = (goodBallCount/100.0f);
+        	float frac_steps_left = 1.0f - (this.numSteps/20000.0f);  
+        	// Debug.Log(27*frac_rem_ball + 3*frac_steps_left);
+        	AddReward(27*frac_rem_ball + 3*frac_steps_left);
+        	foodCollectorSetting.EnvironmentReset();
+        	EndEpisode();
+            this.OnEpisodeBegin();
+
         }
         if(this.numSteps >= 20000) {
             this.numSteps = 0;
@@ -204,7 +215,7 @@ public class FoodCollectorAgent : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         var discreteActionsOut = actionsOut.DiscreteActions;
-        discreteActionsOut[0] = 4;
+        discreteActionsOut[0] = 5;
         if (Input.GetKey(KeyCode.W))
         {
             discreteActionsOut[0] = 0;
@@ -220,6 +231,10 @@ public class FoodCollectorAgent : Agent
         if (Input.GetKey(KeyCode.D))
         {
             discreteActionsOut[0] = 2;
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            discreteActionsOut[0] = 4;
         }
     }
 
