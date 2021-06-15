@@ -88,9 +88,7 @@ public class FoodCollectorAgent : Agent
 
         if(action != 4)
             this.numSteps += 1;
-        if(action == 3) {
-            AddReward(-0.02f);
-        }
+        
         if(this.numSteps >= 20000) {
             this.numSteps = 0;
             foodCollectorSetting.EnvironmentReset();
@@ -161,9 +159,9 @@ public class FoodCollectorAgent : Agent
             case 0:
                 dirToGo = transform.forward;
                 break;
-            case 3:
-                dirToGo = -transform.forward;
-                break;
+            // case 3:
+            //     dirToGo = -transform.forward;
+            //     break;
             case 1:
                 rotateDir = -transform.up;
                 break;
@@ -209,10 +207,10 @@ public class FoodCollectorAgent : Agent
         {
             discreteActionsOut[0] = 0;
         }
-        if (Input.GetKey(KeyCode.S))
-        {
-            discreteActionsOut[0] = 3;
-        }
+        // if (Input.GetKey(KeyCode.S))
+        // {
+        //     discreteActionsOut[0] = 3;
+        // }
         if (Input.GetKey(KeyCode.A))
         {
             discreteActionsOut[0] = 1;
