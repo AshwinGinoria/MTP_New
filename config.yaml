@@ -14,7 +14,10 @@ behaviors:
             normalize: false
             hidden_units: 256
             num_layers: 3
-            vis_encode_type: simple       
+            vis_encode_type: simple
+            memory:
+                sequence_length: 64
+                memory_size: 128        
         reward_signals:
             extrinsic:
                 gamma: 0.99
