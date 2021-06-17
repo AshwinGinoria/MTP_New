@@ -195,6 +195,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: wall1
       objectReference: {fileID: 0}
+    - target: {fileID: 6980564147607577713, guid: b14d74b4e10264a85bcdd0a5f857c18c,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6980564147607577715, guid: b14d74b4e10264a85bcdd0a5f857c18c,
         type: 3}
       propertyPath: m_Layer
@@ -1110,12 +1115,17 @@ PrefabInstance:
     - target: {fileID: 7028587398148106495, guid: 2d5f1ddef141d40a3aaf2385e2dddd35,
         type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7035356140576424215, guid: 2d5f1ddef141d40a3aaf2385e2dddd35,
         type: 3}
       propertyPath: m_Mass
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7035356140576424215, guid: 2d5f1ddef141d40a3aaf2385e2dddd35,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7035356140576424215, guid: 2d5f1ddef141d40a3aaf2385e2dddd35,
         type: 3}
@@ -1645,6 +1655,19 @@ MonoBehaviour:
     m_Bits: 512
   goodBallCount: 0
   badBallCount: 0
+--- !u!65 &1795067929
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795067921}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1, y: 1, z: 1.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1795067930
 MonoBehaviour:
   m_ObjectHideFlags: 0

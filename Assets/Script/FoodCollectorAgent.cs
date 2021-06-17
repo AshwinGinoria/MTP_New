@@ -50,6 +50,7 @@ public class FoodCollectorAgent : Agent
     private float startingFrom = -1; // 0 ground , 1 first floor
     private float isReachedUppar = 0;
     private float isReachedNiche = 0;
+    private bool isCollectedAction = false;
 
     EnvironmentParameters resetParameters;
 
@@ -85,8 +86,12 @@ public class FoodCollectorAgent : Agent
     public void MoveAgent(ActionSegment<int> act)
     {   
         var action = (int)act[0];
+        this.isCollectedAction = false;
+        if(action == 4) {
+            this.isCollectedAction = true;
+        }
 
-        if(action != 4)
+        if(action != 5)
             this.numSteps += 1;
         if(action == 3) {
             AddReward(-0.02f);
@@ -182,17 +187,17 @@ public class FoodCollectorAgent : Agent
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("goodFood"))
-        {
-            AddReward(1f);
-            collision.gameObject.GetComponent<FoodLogic>().OnEaten();
-            goodBallCount += 1;
-            if(agentRb.position.y < 5) {
-                groundNoGoodBallsCollected+= 1;
-            } else {
-                firstFloorNoGoodBallsCollected += 1;
-            }
-        }
+        // if (collision.gameObject.CompareTag("goodFood"))
+        // {
+        //     AddReward(1f);
+        //     collision.gameObject.GetComponent<FoodLogic>().OnEaten();
+        //     goodBallCount += 1;
+        //     if(agentRb.position.y < 5) {
+        //         groundNoGoodBallsCollected+= 1;
+        //     } else {
+        //         firstFloorNoGoodBallsCollected += 1;
+        //     }
+        // }
         if (collision.gameObject.CompareTag("badFood"))
         {
             AddReward(-1f);
@@ -201,10 +206,27 @@ public class FoodCollectorAgent : Agent
         }
     }
 
+    void OnTriggerStay(Collider collision) {
+        Debug.Log(this.isCollectedAction);
+        if(this.isCollectedAction) {
+            if (collision.gameObject.CompareTag("goodFood"))
+            {
+                AddReward(1f);
+                collision.gameObject.GetComponent<FoodLogic>().OnEaten();
+                goodBallCount += 1;
+                if(agentRb.position.y < 5) {
+                    groundNoGoodBallsCollected+= 1;
+                } else {
+                    firstFloorNoGoodBallsCollected += 1;
+                }
+            }
+        }
+    }
+
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         var discreteActionsOut = actionsOut.DiscreteActions;
-        discreteActionsOut[0] = 4;
+        discreteActionsOut[0] = 5;
         if (Input.GetKey(KeyCode.W))
         {
             discreteActionsOut[0] = 0;
@@ -220,6 +242,9 @@ public class FoodCollectorAgent : Agent
         if (Input.GetKey(KeyCode.D))
         {
             discreteActionsOut[0] = 2;
+        }
+        if (Input.GetKey(KeyCode.C)) {
+            discreteActionsOut[0] = 4;
         }
     }
 

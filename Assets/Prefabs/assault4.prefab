@@ -111,7 +111,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.32516137, y: 1.4342275, z: 4.452507}
+  m_Size: {x: 0.32516137, y: 1.734227, z: 4.752507}
   m_Center: {x: 0.005084201, y: 0.15866272, z: 0.26281235}
 --- !u!114 &3721934402541550643
 MonoBehaviour:
