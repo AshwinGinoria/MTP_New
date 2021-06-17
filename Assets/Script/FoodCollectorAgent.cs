@@ -96,7 +96,7 @@ public class FoodCollectorAgent : Agent
         if(action == 3) {
             AddReward(-0.02f);
         }
-        if(this.numSteps >= 20000) {
+        if(this.numSteps >= 25000) {
             this.numSteps = 0;
             foodCollectorSetting.EnvironmentReset();
             EndEpisode();
