@@ -47,10 +47,13 @@ public class FoodCollectorAgent : Agent
     private float numFirstGoodBalls;
 
     private float prevYPosition = 0;
-    private float startingFrom = -1; // 0 ground , 1 first floor
+    private float startingFrom = 0; // 0 ground , 1 first floor
     private float isReachedUppar = 0;
     private float isReachedNiche = 0;
     private bool isCollectedAction = false;
+    private bool isStairsCreated = false;
+    private List<GameObject> stairs;
+    private int currentIndex = -1;
 
     EnvironmentParameters resetParameters;
 
@@ -62,8 +65,7 @@ public class FoodCollectorAgent : Agent
         initialPos=this.transform.position;
         initialRot = this.transform.rotation;
         numGroundGoodBalls = foodBuilding.numFood;
-        numFirstGoodBalls = foodBuilding.numFood;
-        
+        numFirstGoodBalls = foodBuilding.numFood;        
     }
 
     public override void CollectObservations(VectorSensor sensor) {
@@ -87,12 +89,15 @@ public class FoodCollectorAgent : Agent
     {   
         var action = (int)act[0];
         this.isCollectedAction = false;
+        // 'C' for collecting objects
         if(action == 4) {
             this.isCollectedAction = true;
         }
 
+        // 'Increase Number of steps'
         if(action != 6)
             this.numSteps += 1;
+        // unnecessary backward steps;
         if(action == 3) {
             AddReward(-0.02f);
         }
@@ -102,60 +107,8 @@ public class FoodCollectorAgent : Agent
             EndEpisode();
             this.OnEpisodeBegin();
         }
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        // AddReward(-0.001f);
-
-        // if(agentRb.position.y >= 10 && groundNoGoodBallsCollected / (numGroundGoodBalls + 1e-6) >= 0.5) {
-        //     AddReward(6f);
-        //     // Debug.Log("+5 added");
-        //     numGroundGoodBalls -= groundNoGoodBallsCollected;
-        //     groundNoGoodBallsCollected = 0;
-        // }  
-        // if(agentRb.position.y < 8 && !CheckonRamp() && firstFloorNoGoodBallsCollected / (numFirstGoodBalls + 1e-5) >= 0.5) {
-        //     AddReward(6f);
-        //     // Debug.Log("+6 added down");
-        //     numFirstGoodBalls -= firstFloorNoGoodBallsCollected;
-        //     firstFloorNoGoodBallsCollected = 0;
-        // }
-
-
-        if(CheckonRamp() ) {
-            if(startingFrom == -1) {
-                if(prevYPosition <= 1) {
-                    startingFrom = 0;
-
-                } else {
-                    startingFrom = 1;
-                }
-            }
-            if(startingFrom == 0 && isReachedUppar == 0) {
-                if(agentRb.position.y > prevYPosition) {
-                    Debug.Log("rawrd added ");
-                    AddReward(0.25f);
-                } else if(agentRb.position.y < prevYPosition) {
-                    AddReward(-0.25f);
-                    // Debug.Log("penalt aded");
-                }
-            } else if(isReachedNiche == 0) {
-                if(agentRb.position.y < prevYPosition) {
-                    AddReward(0.25f);
-                } else if(agentRb.position.y > prevYPosition) {
-                    AddReward(-0.25f);
-                }
-            }
-            prevYPosition = agentRb.position.y;
-        } else {
-            // if(startingFrom == 0 && agentRb.position.y > 1) {
-            //     isReachedUppar = 1;
-            // }
-            // if(startingFrom == 1 && agentRb.position.y < 1) {
-            //     isReachedNiche = 1;
-            // }
-            // startingFrom = -1;
-        } 
-        if(isGrounded) {
-            prevYPosition = agentRb.position.y;
-        }
         if(!isGrounded && !CheckonRamp()) {
             agentRb.AddForce(-transform.up * 0.2f, ForceMode.VelocityChange);
         }
@@ -178,10 +131,11 @@ public class FoodCollectorAgent : Agent
                 break;
         }
 
+        // jump on ground without any reason.
         if(action == 5 && isGrounded) {
-            AddReward(-0.1f);
+            AddReward(-0.05f);
         }
-
+    
         agentRb.AddForce(dirToGo * moveSpeed, ForceMode.VelocityChange);
         transform.Rotate(rotateDir, Time.fixedDeltaTime * turnSpeed);
         if(action == 5 && CheckonRamp()) {
@@ -198,22 +152,42 @@ public class FoodCollectorAgent : Agent
 
     void OnCollisionEnter(Collision collision)
     {
-        // if (collision.gameObject.CompareTag("goodFood"))
-        // {
-        //     AddReward(1f);
-        //     collision.gameObject.GetComponent<FoodLogic>().OnEaten();
-        //     goodBallCount += 1;
-        //     if(agentRb.position.y < 5) {
-        //         groundNoGoodBallsCollected+= 1;
-        //     } else {
-        //         firstFloorNoGoodBallsCollected += 1;
-        //     }
-        // }
         if (collision.gameObject.CompareTag("badFood"))
         {
             AddReward(-1f);
             // collision.gameObject.GetComponent<FoodLogic>().OnEaten();
             badBallCount += 1;
+        }
+        if (collision.gameObject.CompareTag("ramp")) {
+            int index = -1;
+            for(int i = 0; i < 10 ; i++) {
+                if(collision.gameObject.GetInstanceID() == this.stairs[i].GetInstanceID())
+                    index = i;
+            }
+            if(index != -1) {
+                if(startingFrom == 0) {
+                    if(index > currentIndex) {
+                        AddReward(+0.5f);
+                    } else if(index < currentIndex) {
+                        AddReward(-0.5f);
+                    }
+                    currentIndex = index;
+                    if(currentIndex == 9) {
+                        startingFrom = 1;
+                    }
+                } else if(startingFrom == 1) {
+                    if(index < currentIndex) {
+                        AddReward(0.5f);
+                    } else if (index > currentIndex) {
+                        AddReward(-0.5f);
+                    }
+                    currentIndex = index;
+                    if(currentIndex == 0) {
+                        startingFrom = -1;
+                    }
+                }
+            }
+
         }
     }
 
@@ -264,6 +238,10 @@ public class FoodCollectorAgent : Agent
 
     public override void OnEpisodeBegin()
     {
+        if(isStairsCreated == false) {
+            this.stairs = foodCollectorSetting.CreateStairs();
+            isStairsCreated = true;
+        }
         agentRb.velocity = Vector3.zero;
         this.transform.position = initialPos;
         this.transform.rotation= initialRot;

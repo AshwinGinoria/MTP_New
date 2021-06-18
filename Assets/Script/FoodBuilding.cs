@@ -13,6 +13,8 @@ public class FoodBuilding : MonoBehaviour
     public GameObject chotiGun;
     public GameObject badiGun;
     public GameObject bomb;
+    public GameObject vertical;
+    public GameObject horizontal;
     public int numFood;
     public int numBadFood;
 
@@ -101,6 +103,21 @@ public class FoodBuilding : MonoBehaviour
 
         CreateFood(numFood, food);
         CreateBadFood(numBadFood, badFood);
+    }
+
+    public List<GameObject> CreateStairs() {
+        float zIndex = 15f;
+        float yIndex = 0f;
+        
+        List<GameObject> items = new List<GameObject>();
+        for(int i = 0; i < 10; i++) {
+            GameObject a = Instantiate(vertical,  new Vector3(-14.9f, yIndex + 0.5f, zIndex), Quaternion.Euler(new Vector3(90f, 0f, 0f)));
+            GameObject b = Instantiate(horizontal,  new Vector3(-14.9f, yIndex + 1f, zIndex - 1.75f), Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+            yIndex += 1f;
+            zIndex -= 3.5f;
+            items.Add(b);
+        }
+        return items;
     }
 
 }

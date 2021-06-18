@@ -34,8 +34,15 @@ public class FoodCollectorSetting : MonoBehaviour
         {
             fa.ResetFoodArea(agents);
         }
-
         totalScore = 0;
+    }
+
+    public List<GameObject> CreateStairs() {
+        List<GameObject> item = new List<GameObject>();
+        foreach (var fa in foodArea) {
+            item = fa.CreateStairs();
+        }
+        return item;
     }
 
     void ClearObjects(GameObject[] objects)
@@ -49,7 +56,7 @@ public class FoodCollectorSetting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
