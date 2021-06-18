@@ -103,6 +103,8 @@ public class FoodCollectorAgent : Agent
         }
         if(this.numSteps >= 25000) {
             this.numSteps = 0;
+            this.startingFrom = 0;
+            this.currentIndex = -1;
             foodCollectorSetting.EnvironmentReset();
             EndEpisode();
             this.OnEpisodeBegin();
@@ -135,7 +137,7 @@ public class FoodCollectorAgent : Agent
         if(action == 5 && isGrounded) {
             AddReward(-0.05f);
         }
-    
+
         agentRb.AddForce(dirToGo * moveSpeed, ForceMode.VelocityChange);
         transform.Rotate(rotateDir, Time.fixedDeltaTime * turnSpeed);
         if(action == 5 && CheckonRamp()) {
@@ -245,6 +247,8 @@ public class FoodCollectorAgent : Agent
         agentRb.velocity = Vector3.zero;
         this.transform.position = initialPos;
         this.transform.rotation= initialRot;
+        this.startingFrom = 0;
+        this.currentIndex = -1;
         goodBallCount=0;
         badBallCount=0;
     }
