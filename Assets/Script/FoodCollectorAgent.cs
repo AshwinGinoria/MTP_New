@@ -91,7 +91,7 @@ public class FoodCollectorAgent : Agent
             this.isCollectedAction = true;
         }
 
-        if(action != 5)
+        if(action != 6)
             this.numSteps += 1;
         if(action == 3) {
             AddReward(-0.02f);
@@ -130,33 +130,34 @@ public class FoodCollectorAgent : Agent
             }
             if(startingFrom == 0 && isReachedUppar == 0) {
                 if(agentRb.position.y > prevYPosition) {
-                    // Debug.Log("rawrd added ");
-                    AddReward(0.2f);
+                    Debug.Log("rawrd added ");
+                    AddReward(0.25f);
                 } else if(agentRb.position.y < prevYPosition) {
-                    AddReward(-0.2f);
+                    AddReward(-0.25f);
                     // Debug.Log("penalt aded");
                 }
             } else if(isReachedNiche == 0) {
                 if(agentRb.position.y < prevYPosition) {
-                    AddReward(0.2f);
+                    AddReward(0.25f);
                 } else if(agentRb.position.y > prevYPosition) {
-                    AddReward(-0.2f);
+                    AddReward(-0.25f);
                 }
             }
-
+            prevYPosition = agentRb.position.y;
         } else {
-            if(startingFrom == 0 && agentRb.position.y > 1) {
-                isReachedUppar = 1;
-            }
-            if(startingFrom == 1 && agentRb.position.y < 1) {
-                isReachedNiche = 1;
-            }
-            startingFrom = -1;
+            // if(startingFrom == 0 && agentRb.position.y > 1) {
+            //     isReachedUppar = 1;
+            // }
+            // if(startingFrom == 1 && agentRb.position.y < 1) {
+            //     isReachedNiche = 1;
+            // }
+            // startingFrom = -1;
+        } 
+        if(isGrounded) {
+            prevYPosition = agentRb.position.y;
         }
-        prevYPosition = agentRb.position.y;
         if(!isGrounded && !CheckonRamp()) {
-            
-            agentRb.AddForce(transform.up * -3000, ForceMode.Force);
+            agentRb.AddForce(-transform.up * 0.2f, ForceMode.VelocityChange);
         }
         var dirToGo = Vector3.zero;
         var rotateDir = Vector3.zero;
@@ -176,9 +177,19 @@ public class FoodCollectorAgent : Agent
                 rotateDir = transform.up;
                 break;
         }
+
+        if(action == 5 && isGrounded) {
+            AddReward(-0.1f);
+        }
+
         agentRb.AddForce(dirToGo * moveSpeed, ForceMode.VelocityChange);
         transform.Rotate(rotateDir, Time.fixedDeltaTime * turnSpeed);
-
+        if(action == 5 && CheckonRamp()) {
+            agentRb.AddForce(transform.up * 5f , ForceMode.VelocityChange);
+        }
+        if(action == 5 && isGrounded) {
+            agentRb.AddForce(transform.up * 1.2f , ForceMode.VelocityChange);
+        }
         if (agentRb.velocity.sqrMagnitude > 25f) // slow it down
         {
             agentRb.velocity *= 0.95f;
@@ -207,7 +218,7 @@ public class FoodCollectorAgent : Agent
     }
 
     void OnTriggerStay(Collider collision) {
-        Debug.Log(this.isCollectedAction);
+        // Debug.Log(this.isCollectedAction);
         if(this.isCollectedAction) {
             if (collision.gameObject.CompareTag("goodFood"))
             {
@@ -226,7 +237,7 @@ public class FoodCollectorAgent : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         var discreteActionsOut = actionsOut.DiscreteActions;
-        discreteActionsOut[0] = 5;
+        discreteActionsOut[0] = 6;
         if (Input.GetKey(KeyCode.W))
         {
             discreteActionsOut[0] = 0;
@@ -245,6 +256,9 @@ public class FoodCollectorAgent : Agent
         }
         if (Input.GetKey(KeyCode.C)) {
             discreteActionsOut[0] = 4;
+        }
+        if (Input.GetKey(KeyCode.Space)) {
+            discreteActionsOut[0] = 5;
         }
     }
 
