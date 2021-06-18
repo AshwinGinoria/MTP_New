@@ -1219,7 +1219,7 @@ PrefabInstance:
     - target: {fileID: 7021902083406164011, guid: 2d5f1ddef141d40a3aaf2385e2dddd35,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -40.7
+      value: -33.42
       objectReference: {fileID: 0}
     - target: {fileID: 7021902083406164011, guid: 2d5f1ddef141d40a3aaf2385e2dddd35,
         type: 3}
@@ -1372,7 +1372,7 @@ Transform:
   m_LocalScale: {x: 4, y: 1, z: 4}
   m_Children: []
   m_Father: {fileID: 2103260839}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!64 &1274634300
 MeshCollider:
@@ -1547,7 +1547,7 @@ Transform:
   m_LocalScale: {x: 3, y: 1, z: 4}
   m_Children: []
   m_Father: {fileID: 2103260839}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!64 &1674105083
 MeshCollider:

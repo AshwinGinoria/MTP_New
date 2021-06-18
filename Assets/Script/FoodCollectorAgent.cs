@@ -101,7 +101,7 @@ public class FoodCollectorAgent : Agent
         if(action == 3) {
             AddReward(-0.02f);
         }
-        if(this.numSteps >= 25000) {
+        if(this.numSteps >= 30000) {
             this.numSteps = 0;
             this.startingFrom = 0;
             this.currentIndex = -1;
@@ -133,10 +133,10 @@ public class FoodCollectorAgent : Agent
                 break;
         }
 
-        // jump on ground without any reason.
-        if(action == 5 && isGrounded) {
-            AddReward(-0.05f);
-        }
+        // // jump on ground without any reason.
+        // if(action == 5 && isGrounded) {
+        //     AddReward(-0.05f);
+        // }
 
         agentRb.AddForce(dirToGo * moveSpeed, ForceMode.VelocityChange);
         transform.Rotate(rotateDir, Time.fixedDeltaTime * turnSpeed);
@@ -169,9 +169,9 @@ public class FoodCollectorAgent : Agent
             if(index != -1) {
                 if(startingFrom == 0) {
                     if(index > currentIndex) {
-                        AddReward(+0.5f);
+                        AddReward(+0.75f);
                     } else if(index < currentIndex) {
-                        AddReward(-0.5f);
+                        AddReward(-0.75f);
                     }
                     currentIndex = index;
                     if(currentIndex == 9) {
@@ -179,9 +179,9 @@ public class FoodCollectorAgent : Agent
                     }
                 } else if(startingFrom == 1) {
                     if(index < currentIndex) {
-                        AddReward(0.5f);
+                        AddReward(0.75f);
                     } else if (index > currentIndex) {
-                        AddReward(-0.5f);
+                        AddReward(-0.75f);
                     }
                     currentIndex = index;
                     if(currentIndex == 0) {
