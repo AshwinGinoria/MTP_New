@@ -58,7 +58,7 @@ public class FoodCollectorAgent : Agent
         foodBuilding = area.GetComponent<FoodBuilding>();
         foodCollectorSetting = FindObjectOfType<FoodCollectorSetting>();
         resetParameters = Academy.Instance.EnvironmentParameters;
-        initialPos=this.transform.position;
+        initialPos=this.transform.localPosition;
         initialRot = this.transform.rotation;
         numGroundGoodBalls = foodBuilding.numFood;
         numFirstGoodBalls = foodBuilding.numFood;
@@ -86,8 +86,14 @@ public class FoodCollectorAgent : Agent
     {   
         var action = (int)act[0];
 
-        if(action != 4)
+        if(action != 3) 
             this.numSteps += 1;
+        
+        if (action == 3)
+            AddReward(-0.001f);
+        
+        if (action == 1 || action == 2)
+            AddReward(-0.00005f);
         
         if(this.numSteps >= 20000) {
             this.numSteps = 0;
@@ -98,13 +104,13 @@ public class FoodCollectorAgent : Agent
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         // AddReward(-0.001f);
 
-        // if(agentRb.position.y >= 10 && groundNoGoodBallsCollected / (numGroundGoodBalls + 1e-6) >= 0.5) {
+        // if(agentRb.transform.localPosition.y >= 10 && groundNoGoodBallsCollected / (numGroundGoodBalls + 1e-6) >= 0.5) {
         //     AddReward(6f);
         //     // Debug.Log("+5 added");
         //     numGroundGoodBalls -= groundNoGoodBallsCollected;
         //     groundNoGoodBallsCollected = 0;
         // }  
-        // if(agentRb.position.y < 8 && !CheckonRamp() && firstFloorNoGoodBallsCollected / (numFirstGoodBalls + 1e-5) >= 0.5) {
+        // if(agentRb.transform.localPosition.y < 8 && !CheckonRamp() && firstFloorNoGoodBallsCollected / (numFirstGoodBalls + 1e-5) >= 0.5) {
         //     AddReward(6f);
         //     // Debug.Log("+6 added down");
         //     numFirstGoodBalls -= firstFloorNoGoodBallsCollected;
@@ -122,31 +128,31 @@ public class FoodCollectorAgent : Agent
                 }
             }
             if(startingFrom == 0 && isReachedUppar == 0) {
-                if(agentRb.position.y > prevYPosition) {
+                if(agentRb.transform.localPosition.y > prevYPosition) {
                     // Debug.Log("rawrd added ");
                     AddReward(0.2f);
-                } else if(agentRb.position.y < prevYPosition) {
+                } else if(agentRb.transform.localPosition.y < prevYPosition) {
                     AddReward(-0.2f);
                     // Debug.Log("penalt aded");
                 }
             } else if(isReachedNiche == 0) {
-                if(agentRb.position.y < prevYPosition) {
+                if(agentRb.transform.localPosition.y < prevYPosition) {
                     AddReward(0.2f);
-                } else if(agentRb.position.y > prevYPosition) {
+                } else if(agentRb.transform.localPosition.y > prevYPosition) {
                     AddReward(-0.2f);
                 }
             }
 
         } else {
-            if(startingFrom == 0 && agentRb.position.y > 1) {
+            if(startingFrom == 0 && agentRb.transform.localPosition.y > 1) {
                 isReachedUppar = 1;
             }
-            if(startingFrom == 1 && agentRb.position.y < 1) {
+            if(startingFrom == 1 && agentRb.transform.localPosition.y < 1) {
                 isReachedNiche = 1;
             }
             startingFrom = -1;
         }
-        prevYPosition = agentRb.position.y;
+        prevYPosition = agentRb.transform.localPosition.y;
         if(!isGrounded && !CheckonRamp()) {
             
             agentRb.AddForce(transform.up * -3000, ForceMode.Force);
@@ -185,7 +191,7 @@ public class FoodCollectorAgent : Agent
             AddReward(1f);
             collision.gameObject.GetComponent<FoodLogic>().OnEaten();
             goodBallCount += 1;
-            if(agentRb.position.y < 5) {
+            if(agentRb.transform.localPosition.y < 5) {
                 groundNoGoodBallsCollected+= 1;
             } else {
                 firstFloorNoGoodBallsCollected += 1;
@@ -202,7 +208,7 @@ public class FoodCollectorAgent : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         var discreteActionsOut = actionsOut.DiscreteActions;
-        discreteActionsOut[0] = 4;
+        discreteActionsOut[0] = 3;
         if (Input.GetKey(KeyCode.W))
         {
             discreteActionsOut[0] = 0;
@@ -224,7 +230,7 @@ public class FoodCollectorAgent : Agent
     public override void OnEpisodeBegin()
     {
         agentRb.velocity = Vector3.zero;
-        this.transform.position = initialPos;
+        this.transform.localPosition = initialPos;
         this.transform.rotation= initialRot;
         goodBallCount=0;
         badBallCount=0;
@@ -234,6 +240,4 @@ public class FoodCollectorAgent : Agent
     {
         MoveAgent(actionBuffers.DiscreteActions);
     }
-
-
 }
