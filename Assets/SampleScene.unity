@@ -1044,12 +1044,12 @@ PrefabInstance:
     - target: {fileID: 4569867962098268807, guid: e21373660d5b6174bb90fe06df704b9d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 28.027548
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 4569867962098268807, guid: e21373660d5b6174bb90fe06df704b9d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -34.67578
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4569867962098268807, guid: e21373660d5b6174bb90fe06df704b9d,
         type: 3}
@@ -1085,6 +1085,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569867963161233924, guid: e21373660d5b6174bb90fe06df704b9d,
+        type: 3}
+      propertyPath: Record
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569867963161233924, guid: e21373660d5b6174bb90fe06df704b9d,
+        type: 3}
+      propertyPath: DemonstrationDirectory
+      value: D:\Ashwin\MTP\MTP_New\Demonstrations
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e21373660d5b6174bb90fe06df704b9d, type: 3}
