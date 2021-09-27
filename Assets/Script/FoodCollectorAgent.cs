@@ -86,8 +86,8 @@ public class FoodCollectorAgent : Agent
     {   
         var action = (int)act[0];
 
-        if(action != 3) 
-            this.numSteps += 1;
+        // if(action != 3) 
+        this.numSteps += 1;
         
         if (action == 3)
             AddReward(-0.001f);
