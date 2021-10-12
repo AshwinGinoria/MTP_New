@@ -34,7 +34,7 @@ behaviors:
     keep_checkpoints: 5
     max_steps: 100000
     time_horizon: 64
-    summary_freq: 60000
+    summary_freq: 20000
     behavioral_cloning:
       demo_path: MTP_New/Demonstrations/Recording1.demo
       steps: 50000

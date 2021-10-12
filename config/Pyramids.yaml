@@ -28,6 +28,7 @@ behaviors:
         strength: 0.01
         gamma: 0.99
         demo_path: MTP_New/Demonstrations/Recording1.demo
+      summary_freq: 20000
     behavioral_cloning:
       demo_path: MTP_New/Demonstrations/Recording1.demo
       strength: 0.5
