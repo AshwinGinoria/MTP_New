@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43975616, g: 0.48818195, b: 0.5683975, a: 1}
+  m_IndirectSpecularColor: {r: 0.43975675, g: 0.4881825, b: 0.56839865, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1016,6 +1016,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3112293555096565096, guid: e21373660d5b6174bb90fe06df704b9d,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 2d4e2637be1a8b84ba0a65028187c6b5,
+        type: 3}
+    - target: {fileID: 3112293555096565096, guid: e21373660d5b6174bb90fe06df704b9d,
+        type: 3}
+      propertyPath: m_BehaviorType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3112293555096565096, guid: e21373660d5b6174bb90fe06df704b9d,
         type: 3}
       propertyPath: m_BrainParameters.VectorActionSize.Array.data[0]
