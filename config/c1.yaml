@@ -16,7 +16,7 @@ behaviors:
       num_layers: 3
       vis_encode_type: simple
     keep_checkpoints: 5
-    max_steps: 2500000
+    max_steps: 10000000
     time_horizon: 1000
     summary_freq: 20000
     behavioral_cloning:
