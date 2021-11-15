@@ -1020,7 +1020,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: 2d4e2637be1a8b84ba0a65028187c6b5,
+      objectReference: {fileID: 5022602860645237092, guid: 7f8edd7f459c6374fac6d1a08b382a11,
         type: 3}
     - target: {fileID: 3112293555096565096, guid: e21373660d5b6174bb90fe06df704b9d,
         type: 3}
